@@ -39,7 +39,7 @@ class App extends Component {
 
         const data = e.target.value.split(" ");
         const x = data[data.length - 1].charAt(0).match(/\W|_/g);
-        // console.log('true1',x)
+        
         if(x != "@"){
             this.setState({
                 inputValue: e.target.value,
@@ -52,7 +52,7 @@ class App extends Component {
             this.setState({
                 inputValue: e.target.value,
                 isLoad:true,
-                filterValue:filterValue
+                filterValue:filterValue.toLowerCase()
             })
         }
         
@@ -69,8 +69,9 @@ class App extends Component {
             profileData:searchedResult,
         })
     }
+
     render() {
-        const filterValue = jsonData.filter(z => z.name.toLowerCase()||z.name.toUpperCase().includes(this.state.filterValue));
+        const filterValue = jsonData.filter(z => z.name.toLowerCase().includes(this.state.filterValue));
         return(
 
             <div className="container">
