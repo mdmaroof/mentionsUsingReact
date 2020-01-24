@@ -6,7 +6,19 @@ const jsonData = [
     { id:2 , name:'Rumman',email:'Rumman@gmail.com' },
     { id:3 , name:'Muneer',email:'Muneer@gmail.com' },
     { id:4 , name:'Shamoon',email:'Shamoon@gmail.com' },
-    { id:5 , name:'Shoeb',email:'shoeb@gmail.com' }
+    { id:5 , name:'Shoeb',email:'shoeb@gmail.com' },
+
+    { id:6 , name:'Zaid',email:'Zaid@gmail.com'},
+    { id:7 , name:'Adeel',email:'Adeel@gmail.com' },
+    { id:8 , name:'Ammar',email:'Ammar@gmail.com' },
+    { id:9 , name:'Waseeb',email:'Waseeb@gmail.com' },
+    { id:10 , name:'Mohan',email:'Mohan@gmail.com' },
+
+    { id:11 , name:'John',email:'John@gmail.com'},
+    { id:12 , name:'Mayank',email:'Mayank@gmail.com' },
+    { id:13 , name:'Farukh',email:'Farukh@gmail.com' },
+    { id:14 , name:'Yasir',email:'Yasir@gmail.com' },
+    { id:15 , name:'Kamlesh',email:'Kamlesh@gmail.com' },
 ]
 
 class App extends Component {
@@ -67,12 +79,9 @@ class App extends Component {
     showProfile = (data) => {
         // const slicedValue = data.slice(1);
         // const searchedResult = jsonData.find(o => o.name === slicedValue)
-        this.setState({
-            showProfile:true,
-            // profileData:searchedResult,
-        })
+        this.state.inputValue !== '' ? this.setState({showProfile:true}) : alert('Type Something')
+        // profileData:searchedResult,
     }
-
 
     render() {
         // console.log(this.state.saveArray)
@@ -80,7 +89,7 @@ class App extends Component {
         return(
             <div className="container">
                 <h1>
-                    SEND MESSAGE <span>( name mentions using @ )</span>
+                    SEND MESSAGE <span>( name mentions using @name )</span>
                 </h1>
 
                 <div className="inputContainer">
@@ -125,7 +134,7 @@ class App extends Component {
                                         <div>
                                             <>Profile ID : {jsonData.find(o => o.name === x.slice(1)).id}</><br/>
                                             <>Name : {jsonData.find(o => o.name === x.slice(1)).name}</><br/>
-                                            <>Email : {jsonData.find(o => o.name === x.slice(1)).email}</><br/>
+                                            <>Email : {jsonData.find(o => o.name === x.slice(1)).email.toLowerCase()}</><br/>
                                         </div>
                                         }
                                     </span>
