@@ -32,7 +32,6 @@ body{
     position: relative;
 
 }
-
 .linkedValue span{
     position: absolute;
     top:20px;
@@ -47,7 +46,6 @@ body{
 .linkedValue:hover span{
     display: block;
 }
-
 .btn{
     background:#cccccc;
     color:#000;

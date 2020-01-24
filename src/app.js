@@ -37,7 +37,6 @@ class App extends Component {
         const valueData = {type:'href',value:`@${value}`}
         const data = [...this.state.array.slice(0,this.state.array.length-1),valueData.value];
         const changedInput = data.join(' ');
-
         this.setState({
             saveArray:[...this.state.saveArray,valueData],
             array:data,
@@ -49,10 +48,8 @@ class App extends Component {
 
     typeValue = (e) => {
         e.preventDefault();
-
         const data = e.target.value.split(" ");
         const x = data[data.length - 1].charAt(0).match(/\W|_/g);
-        
         if(x != "@"){
             this.setState({
                 inputValue: e.target.value,
@@ -70,105 +67,68 @@ class App extends Component {
                 filterValue:filterValue.toLowerCase()
             })
         }
-        
         this.setState({
             array:data
         })
     }
 
     showProfile = (data) => {
-        // const slicedValue = data.slice(1);
-        // const searchedResult = jsonData.find(o => o.name === slicedValue)
-        this.state.inputValue !== '' ? this.setState({showProfile:true}) : alert('Type Something')
-        // profileData:searchedResult,
+        this.state.inputValue !== '' ? this.setState({showProfile:true}) : alert('Dude Atleast Type Something !!!')
     }
 
     render() {
-        // console.log(this.state.saveArray)
         const filterValue = jsonData.filter(z => z.name.toLowerCase().includes(this.state.filterValue));
         return(
             <div className="container">
-                <h1>
-                    SEND MESSAGE <span>( name mentions using @name )</span>
-                </h1>
-
+                <h1>SEND MESSAGE <span>( name mentions using @name )</span></h1>
                 <div className="inputContainer">
                     <input className="inputStyle" value={this.state.inputValue} onChange={this.typeValue}/> <button className="btn" onClick={this.showProfile}>Send Data</button>
-
                     {filterValue.length !== 0 && this.state.isLoad ?
                         <div className="dataSelect">
                             {filterValue.length === 0 ?
-                                'No Result'
+                             'No Result'
                             :
-                                filterValue.map((x,i) =>{
-                                    return(
-                                        <li key={x.id} className="hoverVlaue" onClick={ () =>this.clickedData(x.name) }> {x.name} </li>
-                                    )
-                                })
-                            }
+                            filterValue.map((x,i) =>{
+                                return(
+                                    <li key={x.id} className="hoverVlaue" onClick={ () =>this.clickedData(x.name) }> {x.name} </li>
+                                )
+                            })}
                         </div>
                         :
                         ''
                     }
-
                 </div>
 
-                <br/> <br/> <br/>
+                <br/>
                 {this.state.showProfile ? 
                     this.state.inputValue.split(" ").map((x,i)=>{
                         const data = this.state.saveArray.find(o => o.value === x) || false;
-                        // console.log(data)
                         if(data === false){
-                            return(
-                                <React.Fragment key={i}>{x} &nbsp;</React.Fragment>
-                            )
+                            return <React.Fragment key={i}>{x} &nbsp;</React.Fragment>
                         }
                         else{
                             return(
                                 <React.Fragment key={i}>
                                     <span className="linkedValue" style={{padding:'2px 4px',cursor:'Pointer',background:'#ccc',color:'#ff0000'}} href="#">
                                         {x}
-                                    <span>
-
-                                        {
-                                        <div>
-                                            <>Profile ID : {jsonData.find(o => o.name === x.slice(1)).id}</><br/>
-                                            <>Name : {jsonData.find(o => o.name === x.slice(1)).name}</><br/>
-                                            <>Email : {jsonData.find(o => o.name === x.slice(1)).email.toLowerCase()}</><br/>
-                                        </div>
-                                        }
-                                    </span>
-                                    </span>  &nbsp;
+                                        <span>
+                                            {<div>
+                                                <>Profile ID : {jsonData.find(o => o.name === x.slice(1)).id}</><br/>
+                                                <>Name : {jsonData.find(o => o.name === x.slice(1)).name}</><br/>
+                                                <>Email : {jsonData.find(o => o.name === x.slice(1)).email.toLowerCase()}</><br/>
+                                            </div>}
+                                        </span>
+                                    </span>  
+                                    &nbsp;
                                 </React.Fragment>       
                             )
                         }
-                    }
-                    ) || 'Type Something'
-                    :
-                    ''
+                    }) : ''
                 }
-                
-
-
                 <hr />
-                <br />
-
-
-
-
                 Example : Hello @Maroof
-                {/* {this.state.showProfile ?
-                 <>
-                    <b>Profile ID : </b> {this.state.profileData.id}<br/>
-                    <b>Profile Name : </b> {this.state.profileData.name}<br/>
-                    <b>Profile Email : </b> {this.state.profileData.email}
-                 </>
-                 :
-                 ''
-                } */}
             </div>
         )
     }
 }
-
 export default App;
