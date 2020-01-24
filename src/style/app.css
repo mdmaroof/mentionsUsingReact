@@ -30,7 +30,10 @@ body{
 }
 .linkedValue{
     position: relative;
-
+    padding:2px 4px;
+    cursor: pointer;
+    background: #cccccc;
+    color:#ff0000;
 }
 .linkedValue span{
     position: absolute;
@@ -50,9 +53,15 @@ body{
     background:#cccccc;
     color:#000;
     cursor:pointer;
-    font-size: 20px;
+    font-size: 14px;
+    font-weight: 100;
+    padding: 6px 20px;
+    margin-left: 10px;
+    position: relative;
+    top: -3px;
 }
 h1 span{
     font-size: 18px;
     color: #ff0000;
+    font-weight: 100;
 }

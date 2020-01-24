@@ -80,25 +80,20 @@ class App extends Component {
         const filterValue = jsonData.filter(z => z.name.toLowerCase().includes(this.state.filterValue));
         return(
             <div className="container">
-                <h1>SEND MESSAGE <span>( name mentions using @name )</span></h1>
+                <h1>SEND MESSAGE <span>( name mentions using @xyz )</span></h1>
                 <div className="inputContainer">
-                    <input className="inputStyle" value={this.state.inputValue} onChange={this.typeValue}/> <button className="btn" onClick={this.showProfile}>Send Data</button>
+                    <input className="inputStyle" value={this.state.inputValue} onChange={this.typeValue}/> 
+                    <span className="btn" onClick={this.showProfile}>Send Data</span>
                     {filterValue.length !== 0 && this.state.isLoad ?
                         <div className="dataSelect">
-                            {filterValue.length === 0 ?
-                             'No Result'
-                            :
-                            filterValue.map((x,i) =>{
-                                return(
-                                    <li key={x.id} className="hoverVlaue" onClick={ () =>this.clickedData(x.name) }> {x.name} </li>
-                                )
-                            })}
+                            {filterValue.length === 0 ? 'No Result' :filterValue.map((x,i) =>{
+                                return<li key={x.id} className="hoverVlaue" onClick={ () =>this.clickedData(x.name) }> {x.name} </li>})
+                            }
                         </div>
                         :
                         ''
                     }
                 </div>
-
                 <br/>
                 {this.state.showProfile ? 
                     this.state.inputValue.split(" ").map((x,i)=>{
@@ -109,7 +104,7 @@ class App extends Component {
                         else{
                             return(
                                 <React.Fragment key={i}>
-                                    <span className="linkedValue" style={{padding:'2px 4px',cursor:'Pointer',background:'#ccc',color:'#ff0000'}} href="#">
+                                    <span className="linkedValue">
                                         {x}
                                         <span>
                                             {<div>
