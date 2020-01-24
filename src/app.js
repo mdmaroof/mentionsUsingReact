@@ -31,6 +31,7 @@ class App extends Component {
             array:data,
             inputValue:changedInput,
             isLoad:false,
+            showProfile:false,
         })
     }
 
@@ -44,14 +45,16 @@ class App extends Component {
             this.setState({
                 inputValue: e.target.value,
                 isLoad:false,
-                filterValue:''
+                filterValue:'',
+                showProfile:false,
             })
         }
         else{
             const filterValue = data[data.length - 1].slice(1)
+            const dataNew = filterValue.length != 0;
             this.setState({
                 inputValue: e.target.value,
-                isLoad:true,
+                isLoad:dataNew,
                 filterValue:filterValue.toLowerCase()
             })
         }
@@ -62,27 +65,28 @@ class App extends Component {
     }
 
     showProfile = (data) => {
-        const slicedValue = data.slice(1);
-        const searchedResult = jsonData.find(o => o.name === slicedValue)
+        // const slicedValue = data.slice(1);
+        // const searchedResult = jsonData.find(o => o.name === slicedValue)
         this.setState({
             showProfile:true,
-            profileData:searchedResult,
+            // profileData:searchedResult,
         })
     }
 
+
     render() {
+        // console.log(this.state.saveArray)
         const filterValue = jsonData.filter(z => z.name.toLowerCase().includes(this.state.filterValue));
         return(
-
             <div className="container">
                 <h1>
-                    Mentions search List
+                    SEND MESSAGE <span>( name mentions using @ )</span>
                 </h1>
 
                 <div className="inputContainer">
-                    <input className="inputStyle" value={this.state.inputValue} onChange={this.typeValue}/>
+                    <input className="inputStyle" value={this.state.inputValue} onChange={this.typeValue}/> <button className="btn" onClick={this.showProfile}>Send Data</button>
 
-                    {this.state.isLoad ?
+                    {filterValue.length !== 0 && this.state.isLoad ?
                         <div className="dataSelect">
                             {filterValue.length === 0 ?
                                 'No Result'
@@ -101,29 +105,46 @@ class App extends Component {
                 </div>
 
                 <br/> <br/> <br/>
+                {this.state.showProfile ? 
+                    this.state.inputValue.split(" ").map((x,i)=>{
+                        const data = this.state.saveArray.find(o => o.value === x) || false;
+                        // console.log(data)
+                        if(data === false){
+                            return(
+                                <React.Fragment key={i}>{x} &nbsp;</React.Fragment>
+                            )
+                        }
+                        else{
+                            return(
+                                <React.Fragment key={i}>
+                                    <span className="linkedValue" style={{padding:'2px 4px',cursor:'Pointer',background:'#ccc',color:'#ff0000'}} href="#">
+                                        {x}
+                                    <span>
 
-                {this.state.inputValue.split(" ").map((x,i)=>{
-                    const data = this.state.saveArray.find(o => o.value === x) || false;
-                    if(data === false){
-                        return(
-                            <React.Fragment key={i}>{x} &nbsp;</React.Fragment>
-                        )
+                                        {
+                                        <div>
+                                            <>Profile ID : {jsonData.find(o => o.name === x.slice(1)).id}</><br/>
+                                            <>Name : {jsonData.find(o => o.name === x.slice(1)).name}</><br/>
+                                            <>Email : {jsonData.find(o => o.name === x.slice(1)).email}</><br/>
+                                        </div>
+                                        }
+                                    </span>
+                                    </span>  &nbsp;
+                                </React.Fragment>       
+                            )
+                        }
                     }
-                    else{
-                        return(
-                            <React.Fragment key={i}>
-                                <span onClick={()=>this.showProfile(x)} style={{padding:'2px 4px',cursor:'Pointer',background:'#ccc',color:'#ff0000'}} href="#">{x}</span>  &nbsp;
-                            </React.Fragment>       
-                        )
-                    }
+                    ) || 'Type Something'
+                    :
+                    ''
                 }
-                ) || 'Type Something'}
+                
 
 
                 <hr />
                 <br />
 
-                {this.state.showProfile ?
+                {/* {this.state.showProfile ?
                  <>
                     <b>Profile ID : </b> {this.state.profileData.id}<br/>
                     <b>Profile Name : </b> {this.state.profileData.name}<br/>
@@ -131,7 +152,7 @@ class App extends Component {
                  </>
                  :
                  ''
-                }
+                } */}
             </div>
         )
     }
