@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import './style/app.css';
 
 const jsonData = [
-    { id:1 , name:'maroof' },
-    { id:2 , name:'rumman' },
-    { id:3 , name:'muneer' },
-    { id:4 , name:'shamoon' },
-    { id:5 , name:'shoeb' }
+    { id:1 , name:'Maroof',email:'Maroof@gmail.com'},
+    { id:2 , name:'Rumman',email:'Rumman@gmail.com' },
+    { id:3 , name:'Muneer',email:'Muneer@gmail.com' },
+    { id:4 , name:'Shamoon',email:'Shamoon@gmail.com' },
+    { id:5 , name:'Shoeb',email:'shoeb@gmail.com' }
 ]
 
 class App extends Component {
@@ -21,9 +22,7 @@ class App extends Component {
     }
 
     clickedData = (value) => {
-        // const valueData = <a href="#">@{value}</a>;
         const valueData = {type:'href',value:`@${value}`}
-        // console.log('--->',valueData)
         const data = [...this.state.array.slice(0,this.state.array.length-1),valueData.value];
         const changedInput = data.join(' ');
 
@@ -71,24 +70,25 @@ class App extends Component {
         })
     }
     render() {
-      const filterValue = jsonData.filter(z => z.name.includes(this.state.filterValue));
+        const filterValue = jsonData.filter(z => z.name.toLowerCase()||z.name.toUpperCase().includes(this.state.filterValue));
         return(
 
             <div className="container">
                 <h1>
-                    Input search List
+                    Mentions search List
                 </h1>
 
-                <input value={this.state.inputValue} onChange={this.typeValue} style={{width:'400px',fontSize:'20px',marginTop:'40px',marginLeft:'10px'}}/>
-                    
+                <div className="inputContainer">
+                    <input className="inputStyle" value={this.state.inputValue} onChange={this.typeValue}/>
+
                     {this.state.isLoad ?
-                        <div style={{background:'#000',color:'#fff',padding:'20px 10px',position:'absolute',width:'300px'}}>
+                        <div className="dataSelect">
                             {filterValue.length === 0 ?
                                 'No Result'
                             :
                                 filterValue.map((x,i) =>{
                                     return(
-                                        <li key={x.id} onClick={ () =>this.clickedData(x.name) }> {x.name} </li>
+                                        <li key={x.id} className="hoverVlaue" onClick={ () =>this.clickedData(x.name) }> {x.name} </li>
                                     )
                                 })
                             }
@@ -96,6 +96,9 @@ class App extends Component {
                         :
                         ''
                     }
+
+                </div>
+
                 <br/> <br/> <br/>
 
                 {this.state.inputValue.split(" ").map((x,i)=>{
@@ -108,12 +111,10 @@ class App extends Component {
                     else{
                         return(
                             <React.Fragment key={i}>
-                                <span onClick={()=>this.showProfile(x)} style={{padding:'2px 4px',background:'#000',color:'#ff0000'}} href="#">{x}</span>  &nbsp;
-                            </React.Fragment>
-                            
+                                <span onClick={()=>this.showProfile(x)} style={{padding:'2px 4px',cursor:'Pointer',background:'#ccc',color:'#ff0000'}} href="#">{x}</span>  &nbsp;
+                            </React.Fragment>       
                         )
                     }
-                    
                 }
                 ) || 'Type Something'}
 
@@ -124,13 +125,12 @@ class App extends Component {
                 {this.state.showProfile ?
                  <>
                     <b>Profile ID : </b> {this.state.profileData.id}<br/>
-                    <b>Profile Name : </b> {this.state.profileData.name}
+                    <b>Profile Name : </b> {this.state.profileData.name}<br/>
+                    <b>Profile Email : </b> {this.state.profileData.email}
                  </>
                  :
                  ''
                 }
-
-
             </div>
         )
     }

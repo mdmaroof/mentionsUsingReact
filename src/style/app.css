@@ -1,0 +1,27 @@
+body{
+    background:#f5f5f5
+}
+.inputContainer{
+    position: relative;
+}
+.inputStyle{
+    width: 400px;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.dataSelect{
+    background: #ccc;
+    border:2px solid #000;
+    position: absolute;
+    width: 400px;
+    left:10px;
+    top:20;
+}
+.hoverVlaue{
+    cursor: pointer;
+    margin:5px 0px;
+}
+.hoverVlaue:hover{
+    color:#ff0000
+}
