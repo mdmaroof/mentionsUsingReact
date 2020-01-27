@@ -99,7 +99,7 @@ class App extends Component {
                     this.state.inputValue.split(" ").map((x,i)=>{
                         const data = this.state.saveArray.find(o => o.value === x) || false;
                         if(data === false){
-                            return <React.Fragment key={i}>{x} &nbsp;</React.Fragment>
+                        return <React.Fragment key={i}>{x} {this.state.inputValue.split(" ").length === (i+1) ? '' : <>&nbsp;</>}</React.Fragment>
                         }
                         else{
                             return(
@@ -114,7 +114,7 @@ class App extends Component {
                                             </div>}
                                         </span>
                                     </span>  
-                                    &nbsp;
+                                    {this.state.inputValue.split(" ").length === (i+1) ? '' : <>&nbsp;</>}
                                 </React.Fragment>       
                             )
                         }
